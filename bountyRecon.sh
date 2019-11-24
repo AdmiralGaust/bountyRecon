@@ -2,9 +2,14 @@
 
 ##Script to Automate Bug Bounty Recon
 
-if ! [[ -f ${1} ]] ;then
-	echo "[!] Please pass the required arguments :"
-	echo "		usage : ./bountyRecon.sh [list of domains]" 
+if ! [[ ${1} && ${2} ]] ;then
+	echo -e "\n[!] Please pass the required arguments :"
+	echo -e "\tusage : ./bountyRecon.sh TARGET_NAME [list of domains]\n" 
+	exit
+fi
+
+if ! [[ -f ${2} ]]; then
+	echo -e "\n[-] File does not exist : ${2}\n"
 	exit
 fi
 
@@ -15,22 +20,23 @@ function getValueFromConfig() {
     echo `grep ${1} config.conf | cut -d '=' -f 2`
 }
 
+Recon_Home=`pwd`"/${1}"
+domains=${2}
+amass_config_path=$(getValueFromConfig "amass_config_path") 
 
-######Subdomain Enumeration######
+start_time=`date "+%d%m%y_%H%M%S"`
+mkdir -p "${Recon_Home}/logs"
 
-Recon_Home=$(getValueFromConfig "Recon_Home")
+logfile="${Recon_Home}/logs/${start_time}.log"
+
+######Subdomain Enumeration
 
 mkdir -p "${Recon_Home}/subdomains"
 
-##Subfinder
+echo -e "\n[!] Started Subdomain Enumeration at ${start_time}\n"| tee -a ${logfile}
 
-#grep "\S" ${1}| while read domain; do
-#	subfinder -dL ${domain} -o ${Recon_Home}/subdomains/$domain -t 100 -recursive
-#done
+./subdomains.sh $domains "${Recon_Home}/subdomains" "${amass_config_path}"
 
-echo subfinder -dL ${1} -o "${Recon_Home}/subdomains/subfinder.txt" -t 100 -recursive
+echo -e "[+] Subdomain Enumeration Finished at `date '+%d%m%y_%H%M%S'`"| tee -a ${logfile}
 
-##Amass
-amass_config_path=$(getValueFromConfig "amass_config_path") 
-echo amass enum -config ${amass_config_path} -o "${Recon_Home}/subdomains/amass.txt" -df ${1}
-
+####
