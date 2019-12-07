@@ -1,4 +1,4 @@
-subfinder
-amass
+subfinder (~/.config/subfinder/config.json)
+amass (config.ini)
 massdns
 aquatone

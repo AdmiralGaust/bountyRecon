@@ -27,7 +27,7 @@ function getValueFromConfig() {
 TARGET_NAME=${1}
 domains=${2}
 
-Recon_Home=`pwd`"/TARGET_NAME"
+Recon_Home=`pwd`"/${TARGET_NAME}"
 amass_config_path=$(getValueFromConfig "amass_config_path") 
 
 
@@ -64,7 +64,7 @@ massdns_home=$(getValueFromConfig "massdns_home")
 
 echo "[+] Checking for Resolvable domains..\n" | tee -a ${logfile}
 
-${massdns_home}/massdns -r ${massdns_home}/lists/resolvers.txt -o S -w "${Recon_Home}/subdomains/massdns.txt" "${Recon_Home}/subdomains/subdomains.txt"
+${massdns_home}/bin/massdns -r ${massdns_home}/lists/resolvers.txt -o S -w "${Recon_Home}/subdomains/massdns.txt" "${Recon_Home}/subdomains/subdomains.txt"
 
 echo "[+] Finished Checking Resolvable domains\n" | tee -a ${logfile}
 
