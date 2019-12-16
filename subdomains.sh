@@ -4,11 +4,13 @@ function getValueFromConfig() {
 }
 
 
-amass_home=$(getValueFromConfig "amass_home") 
-
 ##Subfinder
 subfinder -dL ${1} -o "${2}/subfinder.txt" -t 100 -recursive 
 
 ##Amass
-${amass_home}/amass enum -config "${3}" -o "${2}/amass.txt" -df ${1}
+
+amass_home=$(getValueFromConfig "amass_home") 
+amass_config_path=$(getValueFromConfig "amass_config_path") 
+
+${amass_home}/amass enum -config "${amass_config_path}" -o "${2}/amass.txt" -df ${1}
 

@@ -42,11 +42,11 @@ logfile="${Recon_Home}/logs/${start_time}.log"
 
 mkdir -p "${Recon_Home}/subdomains"
 
-echo -e "\n[+] Started Subdomain Enumeration at ${start_time}\n"| tee -a ${logfile}
+echo -e "\n[+] Started Subdomain Enumeration at ${start_time}"| tee -a ${logfile}
 
-./subdomains.sh $domains "${Recon_Home}/subdomains" "${amass_config_path}"
+echo $domains | parallel ./subdomains.sh {} "${Recon_Home}/subdomains"
 
-echo -e "[+] Subdomain Enumeration Finished at `date '+%d%m%y_%H%M%S'`\n"| tee -a ${logfile}
+echo -e "[+] Subdomain Enumeration Finished at `date '+%d%m%y_%H%M%S'`"| tee -a ${logfile}
 
 cat "${Recon_Home}/subdomains/subfinder.txt" "${Recon_Home}/subdomains/amass.txt" |sed  "/^[\.*]/d" |sort -u > "${Recon_Home}/subdomains/subdomains.txt"
 
@@ -62,11 +62,11 @@ cat "${Recon_Home}/subdomains/subfinder.txt" "${Recon_Home}/subdomains/amass.txt
 
 massdns_home=$(getValueFromConfig "massdns_home")
 
-echo "[+] Checking for Resolvable domains..\n" | tee -a ${logfile}
+echo -e "[+] Checking for Resolvable domains.." | tee -a ${logfile}
 
 ${massdns_home}/bin/massdns -r ${massdns_home}/lists/resolvers.txt -o S -w "${Recon_Home}/subdomains/massdns.txt" "${Recon_Home}/subdomains/subdomains.txt"
 
-echo "[+] Finished Checking Resolvable domains\n" | tee -a ${logfile}
+echo -e "[+] Finished Checking Resolvable domains" | tee -a ${logfile}
 
 cat "${Recon_Home}/subdomains/massdns.txt" |cut -d " " -f 1|sed "s/\.$//"|sort -u > "${Recon_Home}/subdomains/resolvable.txt"
 
@@ -76,11 +76,21 @@ cat "${Recon_Home}/subdomains/massdns.txt" |cut -d " " -f 1|sed "s/\.$//"|sort -
 
 mkdir -p "${Recon_Home}/aquatone"
 
-echo "[+] Attempting Screenshot for the target subdomains..\n" | tee -a ${logfile}
+echo -e "[+] Attempting Screenshot for the target subdomains..." | tee -a ${logfile}
 
 aquatone_home=$(getValueFromConfig "aquatone_home")
-${aquatone_home}/aquatone -out ${Recon_Home}/aquatone -http-timeout 30000 -scan-timeout 30000 -screenshot-timeout 60000
+cat "${Recon_Home}/subdomains/subdomains.txt"| ${aquatone_home}/aquatone -out ${Recon_Home}/aquatone -http-timeout 30000 -scan-timeout 30000 -screenshot-timeout 60000
 
-echo "[+] Screenshot Finished for the subdomains..\n" | tee -a ${logfile}
+echo -e "[+] Screenshot Finished for subdomains" | tee -a ${logfile}
 
-#######
+
+#######Extract javascript files and urls
+
+echo -e "[+] Extracting javascript from html source" | tee -a ${logfile}
+
+./jsextractor.sh "${Recon_Home}"
+
+echo -e "[+] javascript extracted successfully" | tee -a ${logfile}
+
+
+########Subdomain takeover
