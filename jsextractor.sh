@@ -1,5 +1,5 @@
 #!/bin/bash
-mkdir -p scripts
+mkdir -p "${1}"/scripts
 
 
 function getValueFromConfig() {
@@ -23,8 +23,8 @@ do
                 fi
                 
                 file=$(basename $end_point)
-                mkdir -p "scriptResponse/$x/"
-                curl -X GET $URL -L > "scriptResponse/$x/$file"
-                echo $URL >> "scripts/$x"
+                mkdir -p "${1}/scriptResponse/$x/"
+                curl -k -X GET $URL -L > "${1}/scriptResponse/$x/$file"
+                echo $URL >> "${1}/scripts/$x"
         done
 done

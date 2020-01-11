@@ -44,7 +44,7 @@ mkdir -p "${Recon_Home}/subdomains"
 
 echo -e "\n[+] Started Subdomain Enumeration at ${start_time}"| tee -a ${logfile}
 
-echo $domains | parallel ./subdomains.sh {} "${Recon_Home}/subdomains"
+echo $domains | parallel  --citation ./subdomains.sh {} "${Recon_Home}/subdomains"
 
 echo -e "[+] Subdomain Enumeration Finished at `date '+%d%m%y_%H%M%S'`"| tee -a ${logfile}
 
@@ -94,3 +94,4 @@ echo -e "[+] javascript extracted successfully" | tee -a ${logfile}
 
 
 ########Subdomain takeover
+
