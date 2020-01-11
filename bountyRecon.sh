@@ -95,3 +95,12 @@ echo -e "[+] javascript extracted successfully" | tee -a ${logfile}
 
 ########Subdomain takeover
 
+mkdir -p "${Recon_Home}/takeover"
+
+echo $Recon_Home | parallel  --citation ./takeover.sh {}
+
+###TO do list
+
+#Test put method on all subdomains
+#Check hidden files and other important files like .git, .DS_Store and swagger-ui.html on all subdomains
+#Masscan the target
