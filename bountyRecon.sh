@@ -104,3 +104,5 @@ echo $Recon_Home | parallel  --citation ./takeover.sh {}
 #Test put method on all subdomains
 #Check hidden files and other important files like .git, .DS_Store and swagger-ui.html on all subdomains
 #Masscan the target
+#Check for cve 2019 19781 exploit - grep "citrix login" in title or "citrix" occurences >3
+#pdf ssrf - html rendering to pdf
