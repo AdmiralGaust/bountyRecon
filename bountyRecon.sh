@@ -27,7 +27,7 @@ function getValueFromConfig() {
 TARGET_NAME=${1}
 domains=${2}
 
-Recon_Home=`pwd`"/${TARGET_NAME}"
+Recon_Home="$(getValueFromConfig "Recon_Home")/${TARGET_NAME}"
 amass_config_path=$(getValueFromConfig "amass_config_path") 
 
 
