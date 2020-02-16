@@ -58,7 +58,7 @@ mkdir -p "${Recon_Home}/aquatone"
 echo -e "[+] Attempting Screenshot for the target subdomains..." | tee -a ${logfile}
 
 aquatone_home=$(getValueFromConfig "aquatone_home")
-cat "${Recon_Home}/subdomains/subdomains.txt"| ${aquatone_home}/aquatone -out $"{Recon_Home}/aquatone" -http-timeout 30000 -scan-timeout 30000 -screenshot-timeout 60000
+cat "${Recon_Home}/subdomains/subdomains.txt"| ${aquatone_home}/aquatone -out "${Recon_Home}/aquatone" -http-timeout 30000 -scan-timeout 30000 -screenshot-timeout 60000
 
 echo -e "[+] Screenshot Finished for subdomains" | tee -a ${logfile}
 
