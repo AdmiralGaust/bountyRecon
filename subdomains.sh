@@ -12,5 +12,5 @@ subfinder -dL ${1} -o "${2}/subfinder.txt" -t 100 -recursive
 amass_home=$(getValueFromConfig "amass_home") 
 amass_config_path=$(getValueFromConfig "amass_config_path") 
 
-${amass_home}/amass enum -config "${amass_config_path}" -o "${2}/amass.txt" -df ${1}
+${amass_home}/amass enum -config "${amass_config_path}" -public-dns -o "${2}/amass.txt" -df ${1}
 
