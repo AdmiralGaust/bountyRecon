@@ -1,0 +1,4 @@
+Check for cve 2019 19781 exploit 
+
+grep "citrix login" in title or "citrix" occurences >3
+

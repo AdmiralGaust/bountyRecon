@@ -1,0 +1,5 @@
+Apache tomcat has AJP prototcol enabled by default on port 8009.
+
+Ghostcat vuln - CVE2020-1938 / CNVD-2020-10487
+
+Allows local file read. POCs available on github.

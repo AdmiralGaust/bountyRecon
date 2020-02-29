@@ -3,3 +3,5 @@ subfinder (~/.config/subfinder/config.json)
 amass (config.ini)
 massdns
 aquatone
+subjack
+subover (subover home should be where providers.json is present)

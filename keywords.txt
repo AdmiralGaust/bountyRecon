@@ -1,0 +1,6 @@
+token
+xoxp-
+access_token
+auth
+aws
+Authorization
