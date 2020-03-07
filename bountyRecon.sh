@@ -101,3 +101,6 @@ echo $Recon_Home | parallel ./takeover.sh {}
 #Masscan the target
 #Check for cve 2019 19781 exploit - grep "citrix login" in title or "citrix" occurences >3
 #pdf ssrf - html rendering to pdf
+
+#ffuf
+#cloud_enum - https://github.com/initstring/cloud_enum

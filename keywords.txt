@@ -1,7 +1,9 @@
+sentry
 token
 xoxp-
 access_token
 auth
-aws
+aws_key
 Authorization
 citrix
+api_key
